@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using System.Net;
-using System.Net.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System.Net;
 
 public class GlobalExceptionMiddleware
 {
-    public async Task InvokeAsync(HttpContext context, Func<Task> next)
+    private readonly RequestDelegate _next;
+
+    public GlobalExceptionMiddleware(RequestDelegate next)
+    {
+        _next = next ?? throw new ArgumentNullException(nameof(next));
+    }
+
+    public async Task InvokeAsync(HttpContext context)
     {
         try
         {
-            await next();
+            await _next(context);
         }
         catch (Exception ex)
         {
@@ -19,20 +23,12 @@ public class GlobalExceptionMiddleware
         }
     }
 
-    private static Task HandleExceptionAsync(HttpContext context, Exception ex)
+    private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-        var response = new
-        {
-            error = new
-            {
-                message = "An error occurred while processing your request.",
-                details = ex.Message
-            }
-        };
-
-        return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+        var result = JsonConvert.SerializeObject(new { error = exception.Message });
+        return context.Response.WriteAsync(result);
     }
 }

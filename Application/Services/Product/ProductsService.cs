@@ -1,12 +1,13 @@
 ﻿using Domain.Models;
-using Infrastructure.Repository;
+using Domain.Models.Product;
+using Infrastructure.Repository.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services
+namespace Application.Services.Product
 {
     public class ProductsService : IProductsService
     {

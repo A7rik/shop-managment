@@ -1,7 +1,8 @@
 ﻿using System.Data;
 using Dapper;
 using Domain.Models;
-using Infrastructure.Repository;
+using Domain.Models.Category;
+using Infrastructure.Repository.Category;
 
 public class CategoryRepository : ICategoryRepository
 {
@@ -24,6 +25,8 @@ public class CategoryRepository : ICategoryRepository
         var command = "PRC_GetCategories";
         result.Data = (await connection.Data.QueryAsync<CategoryModel>(command, null, commandType: CommandType.StoredProcedure)).ToList();
         result.IsSuccess = true;
+        result.Message = "";
+
 
         return result;
     }
@@ -40,6 +43,8 @@ public class CategoryRepository : ICategoryRepository
         var command = "PRC_GetCategoryById";
         result.Data = await connection.Data.QuerySingleOrDefaultAsync<CategoryModel>(command, new { Id = id }, commandType: CommandType.StoredProcedure);
         result.IsSuccess = result.Data != null;
+        result.Message = "";
+
 
         return result;
     }
@@ -60,6 +65,8 @@ public class CategoryRepository : ICategoryRepository
         };
         result.Data = await connection.Data.ExecuteScalarAsync<int>(command, parameters, commandType: CommandType.StoredProcedure);
         result.IsSuccess = true;
+        result.Message = "Category created successfully";
+
 
         return result;
     }
@@ -81,6 +88,8 @@ public class CategoryRepository : ICategoryRepository
         };
         result.Data = await connection.Data.ExecuteAsync(command, parameters, commandType: CommandType.StoredProcedure);
         result.IsSuccess = true;
+        result.Message = "Category updated successfully";
+
 
         return result;
     }
@@ -97,6 +106,8 @@ public class CategoryRepository : ICategoryRepository
         var command = "PRC_DeleteCategory";
         result.Data = await connection.Data.ExecuteAsync(command, new { Id = id }, commandType: CommandType.StoredProcedure);
         result.IsSuccess = true;
+        result.Message = "Category deleted successfully";
+
 
         return result;
     }

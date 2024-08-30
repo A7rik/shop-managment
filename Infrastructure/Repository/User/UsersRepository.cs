@@ -1,7 +1,8 @@
 ﻿using System.Data;
 using Dapper;
 using Domain.Models;
-using Infrastructure.Repository;
+using Domain.Models.User;
+using Infrastructure.Repository.User;
 
 public class UsersRepository : IUsersRepository
 {
@@ -24,6 +25,8 @@ public class UsersRepository : IUsersRepository
         var command = "PRC_GetUsers";
         result.Data = (await connection.Data.QueryAsync<UserModel>(command, null, commandType: CommandType.StoredProcedure)).ToList();
         result.IsSuccess = true;
+        result.Message = "";
+
 
         return result;
     }
@@ -40,6 +43,8 @@ public class UsersRepository : IUsersRepository
         var command = "PRC_GetUserById";
         result.Data = await connection.Data.QuerySingleOrDefaultAsync<UserModel>(command, new { Id = id }, commandType: CommandType.StoredProcedure);
         result.IsSuccess = result.Data != null;
+        result.Message = "";
+
 
         return result;
     }
@@ -63,6 +68,8 @@ public class UsersRepository : IUsersRepository
         };
         result.Data = await connection.Data.ExecuteScalarAsync<int>(command, parameters, commandType: CommandType.StoredProcedure);
         result.IsSuccess = true;
+        result.Message = "User created successfully";
+
 
         return result;
     }
@@ -87,6 +94,8 @@ public class UsersRepository : IUsersRepository
         };
         result.Data = await connection.Data.ExecuteAsync(command, parameters, commandType: CommandType.StoredProcedure);
         result.IsSuccess = true;
+        result.Message = "User updated successfully";
+
 
         return result;
     }
@@ -103,6 +112,8 @@ public class UsersRepository : IUsersRepository
         var command = "PRC_DeleteUser";
         result.Data = await connection.Data.ExecuteAsync(command, new { Id = id }, commandType: CommandType.StoredProcedure);
         result.IsSuccess = true;
+        result.Message = "User deleted successfully";
+
 
         return result;
     }

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+
+namespace Domain.Models.Category
 {
-    public class UpdateUserRequestModel  : CreateUserRequestModel 
+    public class CategoryModel
     {
         public int Id { get; set; }
+        public string Name { get; set; }
 
     }
 }

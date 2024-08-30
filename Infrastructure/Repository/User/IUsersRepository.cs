@@ -1,11 +1,12 @@
 ﻿using Domain.Models;
+using Domain.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Repository
+namespace Infrastructure.Repository.User
 {
 
 

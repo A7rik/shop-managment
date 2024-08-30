@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Domain.Models.User
 {
-    public class UpdateCategoryRequestModel : CreateCategoryRequestModel 
+    public class UpdateUserRequestModel : CreateUserRequestModel
     {
         public int Id { get; set; }
 

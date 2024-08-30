@@ -1,12 +1,13 @@
 ﻿using Domain.Models;
-using Infrastructure.Repository;
+using Domain.Models.User;
+using Infrastructure.Repository.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services
+namespace Application.Services.User
 {
     public class UsersService : IUsersService
     {

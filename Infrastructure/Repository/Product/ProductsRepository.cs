@@ -1,7 +1,8 @@
 ﻿using System.Data;
 using Dapper;
 using Domain.Models;
-using Infrastructure.Repository;
+using Domain.Models.Product;
+using Infrastructure.Repository.Product;
 
 public class ProductsRepository : IProductsRepository
 {
@@ -24,6 +25,8 @@ public class ProductsRepository : IProductsRepository
         var command = "PRC_GetProducts";
         result.Data = (await connection.Data.QueryAsync<ProductModel>(command, null, commandType: CommandType.StoredProcedure)).ToList();
         result.IsSuccess = true;
+        result.Message = "";
+
 
         return result;
     }
@@ -40,6 +43,7 @@ public class ProductsRepository : IProductsRepository
         var command = "PRC_GetProductById";
         result.Data = await connection.Data.QuerySingleOrDefaultAsync<ProductModel>(command, new { Id = id }, commandType: CommandType.StoredProcedure);
         result.IsSuccess = result.Data != null;
+        result.Message = "";
 
         return result;
     }
@@ -64,6 +68,8 @@ public class ProductsRepository : IProductsRepository
         };
         result.Data = await connection.Data.ExecuteScalarAsync<int>(command, parameters, commandType: CommandType.StoredProcedure);
         result.IsSuccess = true;
+        result.Message = "Product created successfully";
+
 
         return result;
     }
@@ -89,6 +95,8 @@ public class ProductsRepository : IProductsRepository
         };
         result.Data = await connection.Data.ExecuteAsync(command, parameters, commandType: CommandType.StoredProcedure);
         result.IsSuccess = true;
+        result.Message = "Product updated successfully";
+
 
         return result;
     }
@@ -105,6 +113,7 @@ public class ProductsRepository : IProductsRepository
         var command = "PRC_DeleteProduct";
         result.Data = await connection.Data.ExecuteAsync(command, new { Id = id }, commandType: CommandType.StoredProcedure);
         result.IsSuccess = true;
+        result.Message = "Product deleted successfully";
 
         return result;
     }
