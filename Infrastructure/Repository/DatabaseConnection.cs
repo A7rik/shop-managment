@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
-using Domain.Models;
 using System.Data;
 using System.Data.SqlClient;
-
-
-using Domain.Models;
+using Domain.Models.Utils;
 
 public interface IDatabaseConnection
 {

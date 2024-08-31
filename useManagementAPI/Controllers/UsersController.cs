@@ -1,9 +1,11 @@
-﻿using Domain.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services.User;
 using Domain.Models.User;
 using Domain.Models.Product;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Domain.Models.Utils;
 
 namespace useManagementAPI.Controllers
 {
@@ -39,17 +41,6 @@ namespace useManagementAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ApiResponseModel<int>>> CreateUser([FromBody] CreateUserRequestModel model)
-        {
-            var result = await _userService.CreateUserAsync(model);
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
         [HttpPut("{id}")]
         public async Task<ActionResult<ApiResponseModel<bool>>> UpdateUser(int id, [FromBody] UpdateUserRequestModel model)
         {
@@ -62,16 +53,42 @@ namespace useManagementAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<ApiResponseModel<bool>>> DeleteUser(int id)
+        [HttpPut("{Email}")]
+        public async Task<ActionResult<ApiResponseModel<bool>>> updateUserRole(string Email, [FromBody] UpdateUserRoleByEmailModel model)
         {
-            var result = await _userService.DeleteUserAsync(id);
+            model.Email = Email;
+            var result = await _userService.UpdateUserRoleByEmailAsync(model);
             if (result.IsSuccess)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-    }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ApiResponseModel<bool>>> DeleteUser(int id)
+        {
+            var RoleID = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            var result = await _userService.DeleteUserAsync(id);
+            if (result.IsSuccess)
+            {
+                if (RoleID != "4")
+                {
+                    var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                    var LogOutResult = _userService.LogoutUser(token);
+                    if (!LogOutResult.IsSuccess)
+                        return BadRequest(new { message = LogOutResult.Message });
+                    return Ok();
+
+                }
+                return Ok(result);
+
+            }
+            return BadRequest(result);
+
+
+        }
+
+    }
 }

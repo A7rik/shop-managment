@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Dapper;
-using Domain.Models;
 using Domain.Models.Product;
+using Domain.Models.Utils;
 using Infrastructure.Repository.Product;
 
 public class ProductsRepository : IProductsRepository

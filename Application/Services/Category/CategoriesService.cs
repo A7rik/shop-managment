@@ -1,5 +1,5 @@
-﻿using Domain.Models;
-using Domain.Models.Category;
+﻿using Domain.Models.Category;
+using Domain.Models.Utils;
 using Infrastructure.Repository.Category;
 using System;
 using System.Collections.Generic;

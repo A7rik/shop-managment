@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Domain.Models;
 using Application.Services.Product;
 using Domain.Models.Product;
+using Microsoft.AspNetCore.Authorization;
+using Domain.Models.Utils;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
+
 public class ProductsController : ControllerBase
 {
     private readonly IProductsService _productService;
@@ -35,7 +37,6 @@ public class ProductsController : ControllerBase
         }
         return BadRequest(result);
     }
-
     [HttpPost]
     public async Task<ActionResult<ApiResponseModel<ProductModel>>> CreateProduct([FromBody] CreateProductRequestModel model)
     {
@@ -69,4 +70,5 @@ public class ProductsController : ControllerBase
         }
         return BadRequest(result);
     }
+   
 }

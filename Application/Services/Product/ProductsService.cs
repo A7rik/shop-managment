@@ -1,5 +1,5 @@
-﻿using Domain.Models;
-using Domain.Models.Product;
+﻿using Domain.Models.Product;
+using Domain.Models.Utils;
 using Infrastructure.Repository.Product;
 using System;
 using System.Collections.Generic;

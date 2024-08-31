@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Dapper;
-using Domain.Models;
 using Domain.Models.Category;
+using Domain.Models.Utils;
 using Infrastructure.Repository.Category;
 
 public class CategoryRepository : ICategoryRepository

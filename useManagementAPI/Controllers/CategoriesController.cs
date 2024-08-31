@@ -1,9 +1,10 @@
-﻿using Domain.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services.Category;
 using Domain.Models.Category;
 using Domain.Models.Product;
+using Microsoft.AspNetCore.Authorization;
+using Domain.Models.Utils;
 
 
 namespace useManagementAPI.Controllers
@@ -40,8 +41,6 @@ namespace useManagementAPI.Controllers
             }
             return BadRequest(result);
         }
-
-
         [HttpPost]
         public async Task<ActionResult<ApiResponseModel<int>>> CreateCategory([FromBody] CreateCategoryRequestModel model)
         {
@@ -75,6 +74,8 @@ namespace useManagementAPI.Controllers
             }
             return BadRequest(result);
         }
+     
+
     }
 
 }

@@ -1,5 +1,5 @@
-﻿using Domain.Models;
-using Domain.Models.User;
+﻿using Domain.Models.User;
+using Domain.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +15,11 @@ namespace Infrastructure.Repository.User
     {
         Task<ApiResponseModel<List<UserModel>>> GetUsersAsync();
         Task<ApiResponseModel<UserModel>> GetUserByIdAsync(int id);
-        Task<ApiResponseModel<int>> CreateUserAsync(CreateUserRequestModel user);
-        Task<ApiResponseModel<int>> UpdateUserAsync(UpdateUserRequestModel user);
+        Task<ApiResponseModel<UserModel>> CreateUserAsync(CreateUserRequestModel user);
+        Task<ApiResponseModel<UserModel>> UpdateUserAsync(UpdateUserRequestModel user);
         Task<ApiResponseModel<int>> DeleteUserAsync(int id);
+        Task<ApiResponseModel<UserAndPasswordModel>> LoginAsync(string Email);
+        Task<ApiResponseModel<int>> UpdateUserRoleByEmailAsync(UpdateUserRoleByEmailModel model);
     }
 
 }
