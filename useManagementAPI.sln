@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "useManagementAPI", "useManagementAPI\useManagementAPI.csproj", "{A5BDC68E-B77C-4BE7-B815-8BD5863016D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "userManagementAPI", "useManagementAPI\userManagementAPI.csproj", "{A5BDC68E-B77C-4BE7-B815-8BD5863016D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Middleware", "Middleware\Middleware.csproj", "{3E7C6C89-7972-443A-A81D-FE8074847416}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{7FEA88D0-7061-441F-A2C4-03E54D803BD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{7BD7BC24-2FC1-4522-86DF-013E0D3E034A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "Utils\Utils.csproj", "{7BD7BC24-2FC1-4522-86DF-013E0D3E034A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
