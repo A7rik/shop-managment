@@ -15,5 +15,9 @@ namespace Application.Services.Product
         Task<ApiResponseModel<int>> CreateProductAsync(CreateProductRequestModel product);
         Task<ApiResponseModel<int>> UpdateProductAsync(UpdateProductRequestModel product);
         Task<ApiResponseModel<int>> DeleteProductAsync(int id);
+        Task<ApiResponseModel<List<ProductModel>>> ProductsByCategoryNameAsync(string categoryName);
+        Task<ApiResponseModel<List<ProductModel>>> ListProductsByNameAsync(string searchString);
+        Task<ApiResponseModel<int>> TotalNumberOfProductsAsync();
+        Task<ApiResponseModel<List<ProductModel>>> GetPagedProductsAsync(int pageNumber, int pageSize, ApiResponseModel<List<ProductModel>> products, string sortBy);
     }
 }

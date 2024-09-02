@@ -13,7 +13,7 @@ namespace Domain.Models.Product
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
         public bool Available { get; set; }
-
+        public int Rating { get; set; }
 
     }
 }

@@ -6,6 +6,8 @@ using Utils;
 using Application.Services.User;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Identity;
+using Domain.Models.Product;
+using Domain.Models.Utils;
 namespace useManagementAPI.Controllers
 {
     [ApiController]
@@ -20,7 +22,9 @@ namespace useManagementAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginRequestModel loginRequest)
+
+        
+        public async Task<ActionResult<ApiResponseModel>> Login([FromBody] LoginRequestModel loginRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -30,16 +34,17 @@ namespace useManagementAPI.Controllers
             if (!loginResult.IsSuccess)
                 return Unauthorized(new { message = loginResult.Message });
 
-            return Ok(new
-            {
-                Token = loginResult.Data.Token,
-                Expiration = loginResult.Data.Expiration,
-                User = loginResult.Data.User
-            });
+            return Ok(loginResult);
+            //return Ok(new
+            //{
+            //    Token = loginResult.Data.Token,
+            //    Expiration = loginResult.Data.Expiration,
+            //    User = loginResult.Data.User
+            //});
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromBody] CreateUserRequestModel createUserRequest)
+        public async Task<ActionResult<ApiResponseModel>> SignUp([FromBody] CreateUserRequestModel createUserRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -57,7 +62,7 @@ namespace useManagementAPI.Controllers
             });
         }
         [HttpPost]
-        public async Task<IActionResult> LogOut()
+        public async Task<ActionResult<ApiResponseModel>> LogOut()
         {
             var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var LogOutResult = _userService.LogoutUser(token);

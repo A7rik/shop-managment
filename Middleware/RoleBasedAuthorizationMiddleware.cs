@@ -55,7 +55,7 @@ namespace Middleware
                 {
                     return true;
                 }
-                if ((method == "PUT" || method == "DELETE") && action == "UpdateUser")
+                if ((method == "GET" || method == "PUT" || method == "DELETE") && action == "UpdateUser" || action == "GetUserById")
                 {
                     var userId = context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
                     var routeUserId = context.GetRouteData().Values["id"]?.ToString();

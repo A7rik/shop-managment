@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using Dapper;
 using Domain.Models.Product;
 using Domain.Models.Utils;
@@ -117,4 +118,37 @@ public class ProductsRepository : IProductsRepository
 
         return result;
     }
+    public async Task<ApiResponseModel<List<ProductModel>>> ProductsByCategoryNameAsync(string CategoryName)
+    {
+        var result = new ApiResponseModel<List<ProductModel>>();
+
+        var connection = await _dbConnection.GetConnection();
+        result.IsSuccess = connection.IsSuccess;
+        result.Message = connection.Message;
+        if (!result.IsSuccess) return result;
+
+        var command = "PRC_GetProductsByCategoryName";
+        result.Data = (await connection.Data.QueryAsync<ProductModel>(command, new { CategoryName = CategoryName }, commandType: CommandType.StoredProcedure)).ToList();
+        result.IsSuccess = true;
+        result.Message = "";
+
+        return result;
+    }
+    public async Task<ApiResponseModel<List<ProductModel>>> ListProductsByNameAsync(string searchString)
+    {
+        var result = new ApiResponseModel<List<ProductModel>>();
+
+        var connection = await _dbConnection.GetConnection();
+        result.IsSuccess = connection.IsSuccess;
+        result.Message = connection.Message;
+        if (!result.IsSuccess) return result;
+
+        var command = "PRC_GetProductsByName";
+        result.Data = (await connection.Data.QueryAsync<ProductModel>(command, new { SearchTerm = searchString }, commandType: CommandType.StoredProcedure)).ToList();
+        result.IsSuccess = true;
+        result.Message = "";
+
+        return result;
+    }
+    
 }

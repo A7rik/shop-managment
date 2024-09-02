@@ -70,5 +70,49 @@ public class ProductsController : ControllerBase
         }
         return BadRequest(result);
     }
-   
+
+    [HttpGet]
+    public async Task<ActionResult<ApiResponseModel<int>>> TotalNumberOfProducts()
+    {
+        var result = await _productService.TotalNumberOfProductsAsync();
+        if (result.IsSuccess)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+    [HttpGet("{pageNumber},{pageSize},{sortBy}")]
+    public async Task<ActionResult<ApiResponseModel<List<ProductModel>>>> GetProductsForAllCategory(int pageNumber, int pageSize, string sortBy)
+    {
+        var products = await _productService.GetAllProductsAsync();
+        var result = await _productService.GetPagedProductsAsync(pageNumber, pageSize, products, sortBy);
+        if (result.IsSuccess)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+    [HttpGet("{searchString},{pageNumber},{pageSize},{sortBy}")]
+    public async Task<ActionResult<ApiResponseModel<List<ProductModel>>>> ListProductsByName(string searchString, int pageNumber, int pageSize, string sortBy)
+    {
+        var products = await _productService.ListProductsByNameAsync(searchString);
+        var result = await _productService.GetPagedProductsAsync(pageNumber, pageSize, products, sortBy);
+
+        if (result.IsSuccess)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+    [HttpGet("{categoryName},{pageNumber},{pageSize},{sortBy}")]
+    public async Task<ActionResult<ApiResponseModel<List<ProductModel>>>> ProductsByCategoryName(string categoryName, int pageNumber, int pageSize, string sortBy)
+    {
+        var products = await _productService.ProductsByCategoryNameAsync(categoryName);
+        var result = await _productService.GetPagedProductsAsync(pageNumber, pageSize, products, sortBy);
+        if (result.IsSuccess)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
 }

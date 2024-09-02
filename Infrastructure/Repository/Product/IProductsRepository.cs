@@ -15,6 +15,8 @@ namespace Infrastructure.Repository.Product
         Task<ApiResponseModel<int>> CreateProductAsync(CreateProductRequestModel product);
         Task<ApiResponseModel<int>> UpdateProductAsync(UpdateProductRequestModel product);
         Task<ApiResponseModel<int>> DeleteProductAsync(int id);
+        Task<ApiResponseModel<List<ProductModel>>> ProductsByCategoryNameAsync(string CategoryName);
+        Task<ApiResponseModel<List<ProductModel>>> ListProductsByNameAsync(string searchString);
 
     }
 
